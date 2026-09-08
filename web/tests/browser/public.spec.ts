@@ -50,6 +50,7 @@ test("mobile navigation, no overflow, FAQ, discovery review and disabled sending
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Send enquiry", exact: true }).click();
   await expect(page.locator(".form-panel").getByRole("alert")).toContainText("has not been sent");
+  await expect(page.locator(".form-panel").getByRole("alert")).toBeFocused();
   await page.screenshot({ path: "test-results/discovery-mobile.png", fullPage: true });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);

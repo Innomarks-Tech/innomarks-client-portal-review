@@ -10,6 +10,9 @@
 - Live Supabase transactional checks: one record for repeated request token, exactly one outbox row, conflicting token rejection, five-per-15-minute bucket limit.
 - Role privilege checks: anonymous table read, authenticated table insert, anonymous RPC and authenticated RPC all denied.
 - All database test inserts rolled back; no synthetic records retained.
+- GitHub Actions checkpoint run 34255230673 passed lint, typecheck, unit tests and build.
+- Deployed homepage and discovery page verified. Live disabled API returns 503 as intended.
+- Final screenshot correction: contact details use a real line break. Rebuilt successfully and reran the mobile journey with an explicit error-focus assertion; passed.
 
 ## Visual evidence
 Playwright captures desktop and mobile homepages and mobile discovery in web/test-results/. That generated directory is excluded from Git. Screenshots inspected for section spacing, mobile reflow and legibility.
