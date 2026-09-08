@@ -1,0 +1,12 @@
+export const services = [
+  { id: "consulting", name: "Technology consulting", shortName: "Strategy", eyebrow: "A practical starting point", title: "Make technology work for your business.", description: "Connect your business goals to practical technology choices, with a clear direction for what comes next.", outcomes: ["Technology strategy", "Business alignment", "Practical roadmaps"] },
+  { id: "transformation", name: "Digital transformation", shortName: "Transformation", eyebrow: "Better ways of working", title: "Less friction. More room to grow.", description: "Modernise day-to-day operations by digitising processes and improving how people, systems, and information work together.", outcomes: ["Digital processes", "Workflow improvements", "Operational efficiency"] },
+  { id: "software", name: "Software development", shortName: "Software", eyebrow: "Built around your needs", title: "Useful software. Made for your people.", description: "Custom web, mobile, and software solutions that solve your business challenges and make everyday tasks easier.", outcomes: ["Web and mobile solutions", "Custom applications", "User experience"] },
+  { id: "data", name: "Data analytics & business intelligence", shortName: "Data & insights", eyebrow: "See the bigger picture", title: "Turn information into a clearer next step.", description: "Bring your data into focus through dashboards, reporting, and analytics that support informed decisions.", outcomes: ["Business dashboards", "Reporting", "Actionable insights"] },
+  { id: "automation", name: "AI & business automation", shortName: "AI & automation", eyebrow: "Make space for meaningful work", title: "Spend less time on repetitive tasks.", description: "Explore practical AI and automation that streamline routine work, support decision-making, and improve productivity.", outcomes: ["Process automation", "Practical AI applications", "Productivity improvements"] },
+  { id: "security", name: "IT governance & cybersecurity", shortName: "Governance & security", eyebrow: "Build with confidence", title: "Stronger foundations for your technology.", description: "Strengthen business resilience through governance, cybersecurity awareness, risk management, and compliance advisory.", outcomes: ["IT governance", "Risk management", "Security awareness"] },
+] as const;
+export type ServiceId = (typeof services)[number]["id"];
+export function isServiceId(value: string): value is ServiceId {
+  return services.some((service) => service.id === value);
+}

@@ -1,0 +1,25 @@
+# Dependencies and generated output
+**/node_modules/
+**/.next/
+**/out/
+**/coverage/
+**/playwright-report/
+**/test-results/
+**/*.tsbuildinfo
+
+# Credentials and local service state
+.env*
+**/.env*
+!.env.example
+!**/.env.example
+**/.vercel/
+**/.supabase/
+supabase/.temp/
+supabase/.branches/
+*.pem
+*.key
+
+# Local tooling
+.DS_Store
+Thumbs.db
+*.log

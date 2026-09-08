@@ -1,0 +1,22 @@
+:root {
+  --color-bg: #ffffff;
+  --color-ink: #102d43;
+  --color-muted: #526777;
+  --color-brand: #075aa3;
+  --color-brand-hover: #06467e;
+  --color-green: #398622;
+  --color-tint: #edf5fa;
+  --color-border: #dce6ec;
+  --color-mint: #eef7e9;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --radius-input: 12px;
+  --radius-card: 24px;
+  --radius-pill: 999px;
+  --shadow-card: 0 20px 60px -24px rgb(10 61 98 / 18%);
+  --shadow-button: 0 5px 16px rgb(7 90 163 / 15%);
+}
