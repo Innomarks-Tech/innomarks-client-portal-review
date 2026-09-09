@@ -1,34 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Innomarks web application
 
-## Getting Started
+This directory contains the Next.js 16 application for the Innomarks Technology Consulting prototype.
 
-First, run the development server:
+## Commands
 
-```bash
+```sh
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run check:env
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm run test:browser
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run build` validates the active environment before compiling. The Playwright configuration starts the appropriate local server when one is not already running.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Configuration
 
-## Learn More
+Start from `.env.example`. Public intake requires `INQUIRIES_ENABLED=true`, the server-only Supabase URL and secret key, a random rate-limit secret of at least 32 characters, and a trusted site origin. Vercel deployment origins are accepted from its system environment variables; keep `SITE_URL` set to the stable review URL.
 
-To learn more about Next.js, take a look at the following resources:
+Outbound email stays independently controlled by `NOTIFICATIONS_ENABLED` and `STAFF_EMAIL_ENABLED`. Both are intentionally false for the domainless prototype.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [the release checklist](../docs/PROTOTYPE_RELEASE.md) and [database instructions](../supabase/README.md).

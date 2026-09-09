@@ -7,6 +7,7 @@ create table public.inquiries (
   status text not null default 'New' check (status in ('New', 'Contacted', 'Proposal Sent')),
   created_at timestamptz not null default now()
 );
+
 create table public.inquiry_notifications (
   inquiry_id uuid primary key references public.inquiries(id) on delete cascade,
   state text not null default 'pending' check (state in ('pending', 'sent')),
@@ -15,14 +16,17 @@ create table public.inquiry_notifications (
   provider_id text,
   check ((state = 'sent') = (sent_at is not null))
 );
+
 create table public.inquiry_rate_limits (
   bucket text primary key,
   window_start timestamptz not null,
   hits integer not null check (hits > 0)
 );
+
 alter table public.inquiries enable row level security;
 alter table public.inquiry_notifications enable row level security;
 alter table public.inquiry_rate_limits enable row level security;
+
 revoke all on public.inquiries, public.inquiry_notifications, public.inquiry_rate_limits from public, anon, authenticated;
 grant select, insert, update, delete on public.inquiries, public.inquiry_notifications, public.inquiry_rate_limits to service_role;
 
@@ -35,14 +39,12 @@ declare
 begin
   if p_bucket is null or length(p_bucket) <> 64 then raise exception 'Invalid bucket'; end if;
   if p_payload_hash is null or length(p_payload_hash) <> 64 then raise exception 'Invalid hash'; end if;
-  -- Serialise identical request tokens so concurrent retries create one record.
   perform pg_advisory_xact_lock(hashtextextended(p_request_id::text, 0));
   select * into existing from public.inquiries where request_id = p_request_id;
   if found then
     if existing.payload_hash <> p_payload_hash then raise exception using errcode = 'P0001', message = 'REQUEST_CONFLICT'; end if;
     return existing.id;
   end if;
-  -- Bound retained abuse metadata; no raw address is stored.
   delete from public.inquiry_rate_limits where window_start < now() - interval '1 day';
   insert into public.inquiry_rate_limits (bucket, window_start, hits)
     values (p_bucket, now(), 1)
@@ -56,7 +58,9 @@ begin
   return new_id;
 end;
 $$;
+
 revoke all on function public.submit_inquiry(uuid, text, jsonb, text) from public, anon, authenticated;
 grant execute on function public.submit_inquiry(uuid, text, jsonb, text) to service_role;
+
 create index inquiries_created_at_idx on public.inquiries(created_at desc);
 create index inquiry_rate_limits_window_idx on public.inquiry_rate_limits(window_start);

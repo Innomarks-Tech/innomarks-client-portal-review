@@ -1,26 +1,18 @@
 # Start here next session
 
-## Reminder requested by the owner
-Ask the mentor tomorrow whether Resend is the approved email provider, who owns the account, and who can verify a sending domain for notifications to info@innomarkstech.co.za. This is a next-session checklist item, not a scheduled push notification.
+## Current prototype checkpoint
 
-## Confirmed decisions
-- Real identity: Innomarks Technology Consulting.
-- Deployment domain: innomarkstech.co.za; DNS access is being organised with the mentor.
-- Six service areas from the profile; branding is not a separate offering.
-- Blue/green/white brand direction from innomarks.co.za, with the supplied logo assets.
-- Layout inspiration: ClawPow flow and UpLinked spacious presentation.
-- First staff account: owner; email address still to be supplied.
-- Zero budget; no paid resources authorised.
+- The live Supabase project is healthy, has one active staff member, and has no enquiry records at this checkpoint.
+- Repository migration timestamps match the remote migration history through `20260909193434_add_staff_foreign_key_indexes`.
+- Project Discovery can be enabled on a Vercel review deployment once the required environment variables in `PROTOTYPE_RELEASE.md` are present.
+- Email notifications and staff sending remain disabled until a domain and sender are approved.
 
-## Next implementation gates
-1. Confirm Resend account/sender setup and owner staff email.
-2. Build invite-only staff login, membership checks, lead review and status history.
-3. Configure server credentials securely in the selected deployment; never paste them into chat.
-4. Verify a synthetic enquiry through browser → database → Resend → authorised inbox.
-5. Complete outbox retry/reconciliation and email delivery failure handling.
-6. Business approval of privacy details: retention, access, hosting/email providers and deletion contact.
-7. Resume Figma when its free-plan MCP call allowance permits. Brief and palette variables are updated; foundation labels and complete editable screen designs/prototype remain pending. Do not upgrade.
-8. Run human usability sessions and screen-reader checks; automated axe results do not replace these.
-9. DNS handover, live-domain verification, deployment and final challenge submission.
+## Next focused work
 
-Online intake and outbound notifications remain disabled during setup.
+1. Review the latest Vercel preview and confirm its environment variables without exposing values.
+2. Run one synthetic browser-to-database enquiry and confirm that it appears for the active staff account.
+3. Review the prototype privacy wording with the business owner and agree a fixed retention schedule before public production use.
+4. Replace placeholder testimonials with approved, attributable client feedback before public release.
+5. Configure Resend, the domain, and scheduled email dispatch only after ownership and sender approval.
+
+The remaining production launch work is intentionally deferred while the site is used as a prototype.

@@ -1,46 +1,52 @@
 # Innomarks Technology Consulting — Client Portal
 
-A zero-budget personal project for the Innomarks student developer challenge. Real business identity and six services are confirmed. The owner supplied the logos and selected ClawPow and UpLinked as layout references, with blue/green branding from innomarks.co.za.
+A responsive Next.js prototype for Innomarks Technology Consulting. It presents the business, six service areas, technology partners, placeholder testimonial layouts, Project Discovery, and a private Supabase-backed staff portal.
 
-[Open the deployed prototype](https://innomarks-client-portal.vercel.app)
+[Open the Vercel review site](https://innomarks-client-portal.vercel.app)
 
-## Current checkpoint
-- Responsive public homepage, six-service explorer, enquiry wizard, review, draft privacy notice and 404 page.
-- Private Supabase intake schema, atomic notification outbox, duplicate protection and persistent rate limiting.
-- Resend sending code prepared for info@innomarkstech.co.za.
-- Intake and notifications disabled by default. Sender setup and staff email are pending.
-- Staff authentication/dashboard, retry operations, complete Figma screen prototype, human usability research and live-domain setup remain to be completed.
+## Current state
+
+- Public landing, contact, privacy, Project Discovery, and not-found pages are implemented.
+- Project enquiries are validated server-side, rate limited, stored privately in Supabase, and assigned an idempotent public reference.
+- Invite-only staff authentication, enquiry review, status history, notes, and prepared email responses are implemented.
+- Database migrations are reconciled with the connected Supabase project and all public application tables have RLS enabled with browser grants revoked.
+- Outbound Resend delivery and its scheduled retry worker remain disabled for this prototype until a domain and sender are approved.
+- The supplied IT mark is already represented by the cropped, web-ready asset in `web/public/brand/symbol.png`; the large white-canvas source is retained outside the app.
 
 ## Run locally
-Use Node 22 LTS. The app is in web/.
+
+Use Node 22 LTS.
+
 ```sh
 cd web
 npm ci
 npm run dev
 ```
-Copy web/.env.example to a local environment file only when configuring services. Never commit credentials or real enquiry data.
+
+Copy `web/.env.example` to `.env.local` only when configuring services. Never commit credentials or real enquiry data.
 
 ## Validate
+
 ```sh
+cd web
+npm run check:env
 npm run lint
 npm run typecheck
 npm test
 npm run build
-npm run start
-# In another terminal; local tests use installed Edge:
 npm run test:browser
 ```
-For Linux CI, install Playwright Chromium and set PLAYWRIGHT_CHANNEL=chromium. Browser tests currently expect intake disabled and a server at http://127.0.0.1:3000.
+
+Playwright starts the local site automatically. GitHub Actions installs Chromium and runs the same browser suite after the production build.
 
 ## Documentation
-- [Next session: start here](docs/NEXT_SESSION.md)
-- [Five-day plan](docs/PLAN.md)
-- [Confirmed decisions](docs/DECISIONS.md)
-- [Development log](docs/DEVELOPMENT.md)
-- [Verification evidence](docs/VERIFICATION.md)
-- [Security and remaining gates](docs/SECURITY.md)
-- [Design process](docs/DESIGN.md)
-- [Figma working file](https://www.figma.com/design/d57KRrIlDsRhMfAJdU9JPC)
 
-## Cost and AI assistance
-Free resources only: no paid upgrades, credit-card trials or domain purchases. AI assistance is permitted; implementation, owner decisions, tests and limitations are recorded honestly. Automated checks are not human usability research.
+- [Prototype release and environment setup](docs/PROTOTYPE_RELEASE.md)
+- [Next work session](docs/NEXT_SESSION.md)
+- [Verification evidence](docs/VERIFICATION.md)
+- [Security architecture](docs/SECURITY.md)
+- [Development log](docs/DEVELOPMENT.md)
+- [Design process](docs/DESIGN.md)
+- [Supabase migrations](supabase/README.md)
+
+The project uses free resources for the prototype. Automated checks support review but do not replace human usability, legal, accessibility, or security approval.

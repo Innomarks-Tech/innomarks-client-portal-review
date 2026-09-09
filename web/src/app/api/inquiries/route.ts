@@ -2,8 +2,9 @@ import { createHash, createHmac } from "node:crypto";
 import { after } from "next/server";
 import { submissionSchema } from "@/lib/inquiry";
 import { database } from "@/lib/server/database";
-import { intakeEnabled } from "@/lib/server/intake-config";
+import { allowedIntakeOrigins, intakeEnabled } from "@/lib/server/intake-config";
 import { notifyInquiry } from "@/lib/server/notifications";
+import { dispatchAcknowledgement } from "@/lib/server/staff-email";
 
 export const runtime = "nodejs";
 function reply(body: object, status: number) {
@@ -11,8 +12,8 @@ function reply(body: object, status: number) {
 }
 export async function POST(request: Request) {
   if (!intakeEnabled()) return reply({ error: "Online enquiries are not available yet. Please email info@innomarkstech.co.za." }, 503);
-  const origin = new URL(process.env.SITE_URL!).origin;
-  if (request.headers.get("origin") !== origin) return reply({ error: "Please send your enquiry from this website." }, 403);
+  const requestOrigin = request.headers.get("origin");
+  if (!requestOrigin || !allowedIntakeOrigins().has(requestOrigin)) return reply({ error: "Please send your enquiry from this website." }, 403);
   if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) return reply({ error: "Unsupported request format." }, 415);
   // Bound the actual stream, rather than trusting Content-Length.
   let size = 0; const chunks: Uint8Array[] = [];
@@ -43,7 +44,8 @@ export async function POST(request: Request) {
     if (error?.message.includes("RATE_LIMITED")) return reply({ error: "You’ve sent several enquiries recently. Please wait 15 minutes before trying again." }, 429);
     if (error?.message.includes("REQUEST_CONFLICT")) return reply({ error: "This submission reference has already been used. Edit your brief and try again." }, 409);
     if (error || typeof data !== "string") return reply({ error: "We could not confirm receipt. Your answers are still here; please try again." }, 503);
-    after(async () => { try { await notifyInquiry(data); } catch { /* Durable outbox preserves the work. No personal data in logs. */ } });
-    return reply({ reference: data }, 201);
+    after(async () => { await Promise.allSettled([notifyInquiry(data), dispatchAcknowledgement(data)]); });
+    const { data: saved } = await database().from("inquiries").select("public_reference").eq("id", data).maybeSingle();
+    return reply({ reference: saved?.public_reference ?? data }, 201);
   } catch { return reply({ error: "We could not confirm receipt. Please keep this page open and try again." }, 503); }
 }

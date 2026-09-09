@@ -39,7 +39,7 @@ Later entries must distinguish planned work, implemented work, automated checks,
 - Inspected the group website visually; adopted blue/green/white with the earlier layout references.
 - Copied four supplied logos unchanged. Replaced fictional branding and stale CSS with responsive components.
 - Added enquiry steps, editable review, disabled-send feedback, privacy draft and 404 page.
-- Applied secure_inquiry_intake migration to the existing Ireland Supabase project. Source SQL: supabase/schema/intake.sql.
+- Applied `secure_inquiry_intake` to the existing Ireland Supabase project. Its tracked source is now `supabase/migrations/20260908165418_secure_inquiry_intake.sql`.
 - Prepared a server-only API and Resend adapter. No service credentials added and no email sent.
 - Updated Figma brief and variables. The next call to update foundation labels hit the free-plan MCP call limit; those labels and complete screen prototypes remain pending. No upgrade requested.
 - Production build, unit checks, browser checks and transactional database checks passed; see VERIFICATION.md.
@@ -47,3 +47,14 @@ Later entries must distinguish planned work, implemented work, automated checks,
 
 - Deployed prototype to https://innomarks-client-portal.vercel.app with INQUIRIES_ENABLED=false and NOTIFICATIONS_ENABLED=false. Vercel reported READY. The first deployment was automatically assigned to the free project subdomain; no custom domain was changed.
 - Corrected CLI deploy location to repository root because Vercel rootDirectory is web.
+
+## 2026-09-09 — Controlled prototype release preparation
+
+- Reconciled tracked migration timestamps with the five migrations applied to the connected `innomarks-client-portal` project.
+- Added and applied indexes for staff foreign keys identified by the Supabase performance advisor.
+- Verified the live intake function, active staff count, empty enquiry store, migration history, and both Supabase advisors without reading or creating customer records.
+- Added automatic Vercel-origin recognition so generated preview URLs and the stable project URL can submit safely when intake is enabled.
+- Added build-time environment validation while keeping Resend notification and staff email switches independent and disabled.
+- Replaced the holding privacy copy with a prototype-specific notice covering collected fields, use, access, providers, retention limits, and information requests.
+- Expanded CI to install Chromium and run the Playwright suite, including reverse sticky-service scrolling and continuous testimonial motion.
+- Replaced stale setup notes with the current prototype release, database, staff access, security, and verification instructions.

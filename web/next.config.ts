@@ -1,5 +1,9 @@
 import type { NextConfig } from "next";
 
+const developmentCacheHeader = process.env.NODE_ENV === "development"
+  ? [{ key: "Cache-Control", value: "no-store, max-age=0" }]
+  : [];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async headers() {
@@ -7,6 +11,7 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: [
+          ...developmentCacheHeader,
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "DENY" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },

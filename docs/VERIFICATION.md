@@ -1,26 +1,26 @@
-# Verification — 2026-09-08 checkpoint
+# Verification — 9 September 2026
 
-## Passed
-- ESLint and production build including TypeScript checking.
-- Seven API/validation unit tests: disabled intake, origin rejection, invalid service/consent, malformed and oversized input, honeypot, persistence-before-success, sanitised failures, rate-limit/conflict mapping.
-- Two Playwright browser scenarios using installed Edge:
-  - Desktop 1440px: six services, keyboard Home/End tabs, exactly one visible tab panel, no page runtime errors, axe WCAG 2 A/AA and 2.1 AA scan.
-  - Mobile 390px: no horizontal page overflow, menu open/Escape/focus return, FAQ, preselected service, editable review, values retained across steps, honest disabled-send error, privacy link and API 503.
-- No axe violations in the two audited states.
-- Live Supabase transactional checks: one record for repeated request token, exactly one outbox row, conflicting token rejection, five-per-15-minute bucket limit.
-- Role privilege checks: anonymous table read, authenticated table insert, anonymous RPC and authenticated RPC all denied.
-- All database test inserts rolled back; no synthetic records retained.
-- GitHub Actions checkpoint run 34255230673 passed lint, typecheck, unit tests and build.
-- Deployed homepage and discovery page verified. Live disabled API returns 503 as intended.
-- Final screenshot correction: contact details use a real line break. Rebuilt successfully and reran the mobile journey with an explicit error-focus assertion; passed.
+## Current evidence
 
-## Visual evidence
-Playwright captures desktop and mobile homepages and mobile discovery in web/test-results/. That generated directory is excluded from Git. Screenshots inspected for section spacing, mobile reflow and legibility.
+- ESLint, TypeScript checking, the 14-test Vitest suite, Git whitespace validation, and the production dependency audit passed after the latest UI and staff portal changes.
+- The complete Next.js production build passed, including TypeScript, page-data collection, and all 14 static/dynamic page generations. This check found and fixed a missing Suspense boundary on `/auth/confirm`.
+- All 17 Playwright scenarios passed after correcting stale selectors and time budgets. They cover responsive layouts, accessibility scans, service selection, Project Discovery, staff review screens, reduced motion, reverse sticky-service scrolling, and the continuously moving testimonial strip.
+- GitHub Actions now installs Chromium and runs Playwright after lint, typecheck, unit tests, and the production build.
+- Local HTTP checks returned 200 for public routes, redirected protected staff routes to login, returned 401 for an unauthorised internal dispatch request, and kept disabled intake at 503 before preview enablement.
+- Supabase reported all five migrations applied. A live read-only query confirmed the intake function exists, one active staff member is configured, and no enquiry records were present.
+- Supabase performance advice has no remaining unindexed foreign keys. Newly created indexes are reported as unused because the database currently contains no enquiry activity.
 
-## Advisors
-Supabase security advisor reported only three INFO notices: RLS enabled with no policies. This is deliberate while tables are server-only and all browser grants are revoked. Staff access policies will be introduced with the dashboard.
-Reference: https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy
+## Security advisor
 
-## Not yet verified
-Real browser-to-database submission on a configured deployment; Resend inbox delivery; staff allow/deny flows; outbox retries and reconciliation; screen reader and human usability sessions; custom domain/DNS; broad device matrix; production performance.
-No claim of complete accessibility or security certification is made.
+The advisor reports six INFO notices for RLS tables without policies. This is deliberate: all application tables have RLS enabled, browser grants are revoked, and approved access is server mediated. It also reports leaked-password protection as disabled; enable that Supabase Auth setting before public production use.
+
+[Supabase RLS advisor reference](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy)
+
+## Still requiring external verification
+
+- The new Vercel preview build and its environment-variable state.
+- One synthetic browser → API → Supabase → staff portal journey with intake enabled.
+- Human keyboard, screen-reader, and usability review.
+- Resend acceptance and inbox delivery after a domain is approved.
+
+No accessibility, legal, or security certification is claimed.

@@ -1,7 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-const { rpc, notify, after } = vi.hoisted(() => ({ rpc: vi.fn(), notify: vi.fn(), after: vi.fn() }));
+const { rpc, referenceLookup, notify, after } = vi.hoisted(() => ({ rpc: vi.fn(), referenceLookup: vi.fn(), notify: vi.fn(), after: vi.fn() }));
 vi.mock("server-only", () => ({}));
-vi.mock("@/lib/server/database", () => ({ database: () => ({ rpc }) }));
+vi.mock("@/lib/server/database", () => ({ database: () => ({
+  rpc,
+  from: () => ({ select: () => ({ eq: () => ({ maybeSingle: referenceLookup }) }) }),
+}) }));
 vi.mock("@/lib/server/notifications", () => ({ notifyInquiry: notify }));
 vi.mock("next/server", () => ({ after }));
 import { POST } from "@/app/api/inquiries/route";
@@ -25,6 +28,7 @@ beforeEach(() => {
   vi.stubEnv("SITE_URL", "https://example.test");
   vi.stubEnv("VERCEL", "0");
   rpc.mockResolvedValue({ data: "e9d8acd4-6c2c-4a31-b0c5-af342b182644", error: null });
+  referenceLookup.mockResolvedValue({ data: { public_reference: "INQ-26-E9D8ACD4" }, error: null });
 });
 describe("enquiry boundary", () => {
   it("fails closed before configuration", async () => {
@@ -35,6 +39,13 @@ describe("enquiry boundary", () => {
     expect((await POST(request(valid, "https://other.test"))).status).toBe(403);
     const req = request(); req.headers.delete("origin");
     expect((await POST(req)).status).toBe(403); expect(rpc).not.toHaveBeenCalled();
+  });
+  it("accepts the generated Vercel deployment and stable project origins", async () => {
+    vi.stubEnv("VERCEL", "1");
+    vi.stubEnv("VERCEL_URL", "innomarks-git-preview.vercel.app");
+    vi.stubEnv("VERCEL_PROJECT_PRODUCTION_URL", "innomarks-client-portal.vercel.app");
+    expect((await POST(request(valid, "https://innomarks-git-preview.vercel.app"))).status).toBe(201);
+    expect((await POST(request(valid, "https://innomarks-client-portal.vercel.app"))).status).toBe(201);
   });
   it("rejects unknown service, duplicate selection and missing acknowledgement", () => {
     expect(inquirySchema.safeParse({ ...valid, services: ["branding"] }).success).toBe(false);
@@ -57,6 +68,7 @@ describe("enquiry boundary", () => {
     expect(args.p_payload.website).toBeUndefined();
     expect(args.p_bucket).toMatch(/^[a-f0-9]{64}$/);
     expect(after).toHaveBeenCalledOnce();
+    expect(await result.json()).toEqual({ reference: "INQ-26-E9D8ACD4" });
   });
   it("returns a retryable failure and never sends after failed persistence", async () => {
     rpc.mockResolvedValue({ data: null, error: { message: "private connection detail" } });

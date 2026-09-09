@@ -1,48 +1,34 @@
-# Security architecture and release gates
+# Security architecture and prototype gates
 
-Status: public intake boundary, server-only tables, idempotency, rate limiting and atomic outbox implemented and tested. Staff controls, operational retry handling and deployment configuration remain pending. Intake is disabled.
+Status: server-only enquiry intake, persistent rate limiting, idempotency, staff membership checks, audit history, and an email outbox are implemented. Public form intake is ready to enable for a controlled Vercel prototype. Outbound email remains disabled.
 
-## Boundaries
+## Trust boundaries
 
-- Visitors submit through a validated server route. They cannot access lead tables directly.
-- Approved active staff can view leads and perform permitted updates. Authentication alone does not confer staff membership.
-- Staff identity is stored in a protected membership table, not user-editable profile metadata.
-- Privileged keys never enter browser bundles, public environment variables, source control, screenshots or logs.
-- RLS and minimum database grants accompany every exposed table migration.
-- All staff mutations verify the session, active membership, origin, input and operation; database permissions independently restrict access.
+- Visitors submit only through the validated `/api/inquiries` route and cannot access database tables directly.
+- The API accepts form posts from the configured site, the generated Vercel deployment URL, or the Vercel project URL. Missing and foreign origins are rejected.
+- Approved active staff can use the portal. A Supabase Auth session without an active `staff_members` record receives no access.
+- Privileged keys stay in server-only environment variables and never enter browser bundles, source control, screenshots, or logs.
+- Every public application table has RLS enabled. Browser grants are revoked; exact service-role grants support server-mediated operations.
+
+## Intake controls
+
+The server limits the request body to 16 KB, validates controlled values, requires acknowledgement, checks a honeypot, and applies a keyed address hash rate limit. Database work stores the enquiry and its related work atomically. A request UUID and payload hash make retries idempotent and reject conflicting reuse.
+
+The build fails if intake is enabled without its database, origin, or rate-limit configuration. Email switches are separate, so the prototype can store enquiries while Resend remains off.
 
 ## Data handling
 
-Collect the minimum inquiry data. Do not collect files or sensitive identity information. Do not log project descriptions or contact values. Keep production and preview data access separated; previews use synthetic data and never production privileged credentials.
+Collect only the project and contact information requested by Project Discovery. Do not collect uploads, passwords, identity documents, payment records, health data, or other sensitive information. Do not log project descriptions or contact values. Access and deletion requests go to `info@innomarkstech.co.za`.
 
-Persist inquiries and notification work transactionally. Idempotency prevents duplicate submissions; status changes and history must remain consistent. Email failures cannot erase leads. Internal notes and audit history are not public.
+## Remaining production decisions
 
-## Controls to implement
-
-- Server-side validation, size limits, controlled enums and database constraints.
-- Honeypot and persistent rate limiting, including login protections.
-- Secure session handling and staff access removal.
-- Private-response cache controls and security headers.
-- Invite-only staff provisioning; no public signup.
-- MFA and recovery instructions before real business data is accepted.
-- Sanitised operational logging and safe, actionable user errors.
-- Explicit data-retention/deletion and recovery procedures before business use.
-
-## Verification required
-
-Test allow/deny cases for anonymous, signed-in non-staff, active staff and disabled staff. Attempt direct API operations and privilege escalation. Test invalid input, cross-origin mutations, double submissions, database failures and failed notifications. Review dependency vulnerabilities and Supabase advisors. No unresolved critical/high security findings at release.
-
-Passing checks reduces risk; it does not establish that any application is completely safe.
-
-
-## Implemented intake details
-Only the service role can call submit_inquiry. The function uses SECURITY INVOKER with an empty search path, explicit grants and RLS on all three tables. No browser role receives a table or function grant yet.
-
-The server validates a 16KB-bounded body, canonical service/budget/timeframe values, required acknowledgement, the configured origin and a honeypot. Database work atomically stores the enquiry and outbox row; a request UUID and payload hash prevent duplicate/reused submissions. A keyed address hash limits new submissions to five per 15 minutes on Vercel. Other hosts use a shared conservative bucket.
-
-Resend uses a fixed recipient and subject, a verified sender environment variable, plain text for untrusted content and an idempotency key. Only successful provider acceptance updates the notification state. No automated retry worker exists yet. Jobs older than 23 hours require manual reconciliation to avoid sending duplicates after provider idempotency expiry. Operational retries and inbox delivery verification are launch gates.
+- Approve a fixed retention and deletion schedule.
+- Enable Supabase leaked-password protection and confirm staff recovery/MFA procedures.
+- Configure an approved email sender, retry schedule, and delivery monitoring.
+- Complete human accessibility, usability, and security review.
 
 Provider references:
-- https://supabase.com/docs/guides/database/postgres/row-level-security
-- https://resend.com/docs/dashboard/emails/idempotency-keys
-- https://vercel.com/docs/headers/request-headers
+
+- [Supabase row level security](https://supabase.com/docs/guides/database/postgres/row-level-security)
+- [Vercel system environment variables](https://vercel.com/docs/environment-variables/system-environment-variables)
+- [Resend idempotency](https://resend.com/docs/dashboard/emails/idempotency-keys)

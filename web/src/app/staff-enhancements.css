@@ -1,0 +1,57 @@
+.staff-login-brand .brand strong span { color: #2d701b; }
+.preview-email-workspace { border: 0; min-width: 0; padding-inline: 0; }
+.staff-sidebar nav { display: grid; gap: 7px; }
+.staff-sidebar nav a { background: transparent; color: var(--color-muted); }
+.staff-sidebar nav a[aria-current="page"] { background: var(--color-tint); color: var(--color-brand); }
+.staff-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 30px; }
+.staff-stats a { background: white; border: 1px solid var(--color-border); border-radius: 14px; padding: 20px; transition: border-color .2s; min-width: 0; }
+.staff-stats a:hover { border-color: var(--color-brand); }
+.staff-stats a > span { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--color-muted); }
+.staff-stats svg { color: var(--color-brand); flex-shrink: 0; }
+.staff-stats strong { display: block; margin: 10px 0 3px; font-size: 32px; line-height: 1.2; }
+.staff-stats small { color: var(--color-muted); font-size: 11px; }
+.email-summary { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin: 28px 0; }
+.email-summary > span { background: white; border: 1px solid var(--color-border); border-radius: 12px; padding: 18px; font-size: 12px; }
+.email-summary strong { display: block; color: var(--color-brand); font-size: 28px; }
+.email-preview-notice { display: flex; align-items: start; gap: 10px; background: #fff5d8; padding: 15px 18px; border: 1px solid #e5cc7b; border-radius: 10px; color: #654d08; font-size: 13px; }
+.email-preview-notice svg { flex-shrink: 0; }
+.email-editor-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 22px; align-items: start; }
+.email-card { padding: 26px; background: white; border: 1px solid var(--color-border); border-radius: 16px; min-width: 0; }
+.email-card h2 { font-size: 24px; line-height: 1.3; margin: 0 0 18px; overflow-wrap: anywhere; }
+.email-card textarea { min-height: 300px; }
+.email-card p, .email-card small { color: var(--color-muted); }
+.email-body { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; margin: 22px 0; }
+.email-to { font-size: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 16px; }
+.email-recipient { max-width: 580px; }
+.automation-rules { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+.rule-heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.rule-heading h3 { margin: 0; overflow-wrap: anywhere; }
+.rule-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; background: var(--color-tint); padding: 15px; border-radius: 9px; font-size: 12px; margin: 22px 0; }
+.rule-option { display: flex; align-items: center; gap: 10px; font-size: 14px; margin: 16px 0; }
+.automation-rules small { display: block; font-size: 12px; margin-top: 14px; }
+.email-feedback { padding: 16px 20px; background: var(--color-mint); border: 1px solid #cbdcbe; border-radius: 10px; color: #286319; }
+.staff-login-card .staff-login-form + .recovery-back { margin-top: 18px; width: 100%; }
+.password-success { display: grid; justify-items: start; gap: 14px; margin-top: 28px; }
+.password-success > svg { width: 36px; height: 36px; color: #2d701b; }
+.password-success p { margin: 0; color: var(--color-ink); font-weight: 650; }
+.email-queue { margin-top: 36px; display: grid; gap: 16px; }
+.email-queue h2 { font-size: 25px; margin: 0 0 14px; }
+.email-queue summary { color: var(--color-brand); font-size: 14px; padding: 10px 0; }
+.email-queue .button { margin-top: 16px; }
+@media(max-width:1100px) {
+ .staff-sidebar { flex-wrap: wrap; }
+ .staff-sidebar nav { display: flex; flex-wrap: wrap; }
+ .staff-stats, .email-summary { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:700px) {
+ .staff-sidebar nav { display: flex; width: 100%; order: 3; gap: 4px; }
+ .staff-sidebar nav a { padding: 10px 8px; font-size: 11px; }
+ .staff-sidebar nav svg { width: 14px; }
+ .staff-stats { gap: 10px; }
+ .staff-stats a { padding: 15px; }
+ .staff-stats a > span { font-size: 11px; }
+ .staff-stats small { font-size: 10px; }
+ .email-summary { gap: 10px; }
+ .email-editor-grid, .automation-rules { grid-template-columns: minmax(0,1fr); }
+ .email-card { padding: 22px; }
+}

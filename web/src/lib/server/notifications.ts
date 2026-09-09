@@ -5,7 +5,7 @@ import { services } from "../services";
 
 /** Resend acceptance is not proof of inbox delivery. Keep unsent work in the outbox. */
 export async function notifyInquiry(id: string) {
-  if (process.env.NOTIFICATIONS_ENABLED !== "true" || !process.env.RESEND_API_KEY || !process.env.RESEND_FROM) return false;
+  if (process.env.NOTIFICATIONS_ENABLED !== "true" || !process.env.RESEND_API_KEY || !process.env.RESEND_FROM || !process.env.INQUIRY_NOTIFICATION_TO) return false;
   const db = database();
   const { data: job, error: jobError } = await db.from("inquiry_notifications").select("state, created_at").eq("inquiry_id", id).single();
   if (jobError || !job || job.state === "sent") return false;
@@ -26,7 +26,7 @@ export async function notifyInquiry(id: string) {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { Authorization: "Bearer " + process.env.RESEND_API_KEY, "Content-Type": "application/json", "Idempotency-Key": "inquiry/" + id },
-      body: JSON.stringify({ from: process.env.RESEND_FROM, to: ["info@innomarkstech.co.za"], subject: "New project enquiry — " + id.slice(0, 8), text, reply_to: brief.email }),
+      body: JSON.stringify({ from: process.env.RESEND_FROM, to: [process.env.INQUIRY_NOTIFICATION_TO], subject: "New project enquiry — " + id.slice(0, 8), text, reply_to: brief.email }),
       signal: AbortSignal.timeout(10000),
     });
     if (!response.ok) return false;
