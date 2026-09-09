@@ -58,3 +58,5 @@ Later entries must distinguish planned work, implemented work, automated checks,
 - Replaced the holding privacy copy with a prototype-specific notice covering collected fields, use, access, providers, retention limits, and information requests.
 - Expanded CI to install Chromium and run the Playwright suite, including reverse sticky-service scrolling and continuous testimonial motion.
 - Replaced stale setup notes with the current prototype release, database, staff access, security, and verification instructions.
+- Deployed the protected Vercel preview with intake enabled and email delivery disabled. Corrected the root `.vercelignore` entry so it excludes only the top-level Supabase migration directory and still packages `web/src/lib/supabase`.
+- Verified the preview's public routes, staff-login redirect, request-origin protection, and enquiry validation through the authenticated Vercel CLI without creating a test enquiry.

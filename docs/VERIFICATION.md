@@ -9,6 +9,8 @@
 - Local HTTP checks returned 200 for public routes, redirected protected staff routes to login, returned 401 for an unauthorised internal dispatch request, and kept disabled intake at 503 before preview enablement.
 - Supabase reported all five migrations applied. A live read-only query confirmed the intake function exists, one active staff member is configured, and no enquiry records were present.
 - Supabase performance advice has no remaining unindexed foreign keys. Newly created indexes are reported as unused because the database currently contains no enquiry activity.
+- Vercel built and deployed the protected preview successfully with intake enabled and email delivery disabled. Authenticated checks returned 200 for `/`, `/privacy`, and `/project-discovery`; `/admin/leads` redirected to `/admin/login`.
+- A same-origin empty enquiry reached application validation and returned 400, while the same request without an origin returned 403. No enquiry record was created by these checks.
 
 ## Security advisor
 
@@ -18,7 +20,6 @@ The advisor reports six INFO notices for RLS tables without policies. This is de
 
 ## Still requiring external verification
 
-- The new Vercel preview build and its environment-variable state.
 - One synthetic browser → API → Supabase → staff portal journey with intake enabled.
 - Human keyboard, screen-reader, and usability review.
 - Resend acceptance and inbox delivery after a domain is approved.

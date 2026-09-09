@@ -1,5 +1,5 @@
 docs
-supabase
+/supabase/
 .github
 **/node_modules
 **/.next
