@@ -10,6 +10,6 @@ No secrets belong in this file.
 | Vercel | `innomarks-client-portal` in `utayannaidoo-5493s-projects` | Deployed prototype: https://innomarks-client-portal.vercel.app |
 | Custom domain | innomarkstech.co.za; no purchase | Awaiting access |
 | Business profile | `TECH_DIVISION_PROFILE.pdf` | Reviewed; source notes recorded |
-| Email | Resend integration prepared | Not configured |
+| Email | Resend integration and Supabase custom SMTP currently use the Resend test sender `onboarding@resend.dev` | Test-only: Resend rejects recipients other than the Resend account owner. Verify an Innomarks sending domain and replace the sender before enabling production staff invites or email delivery. |
 
 Supabase creation quote: 0 per month, checked 2026-09-08. No paid upgrades are authorised. Check free quotas before additional projects or services. Use a free deployment subdomain until an existing domain is supplied.
