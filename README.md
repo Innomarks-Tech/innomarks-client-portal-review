@@ -13,6 +13,8 @@ A responsive Next.js prototype for Innomarks Technology Consulting. It presents 
 - Outbound Resend delivery and its scheduled retry worker remain disabled for this prototype until a domain and sender are approved.
 - The supplied IT mark is already represented by the cropped, web-ready asset in `web/public/brand/symbol.png`; the large white-canvas source is retained outside the app.
 
+Current audit note: CI now verifies deployable production routes and development-only staff preview workflows in separate browser suites. The production suite passes 11 scenarios and the preview suite passes 6 scenarios. The deployment remains a prototype submission until the live intake journey and deferred privacy/email decisions are resolved.
+
 ## Run locally
 
 Use Node 22 LTS.

@@ -32,6 +32,11 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:browser
+      - name: Test production routes
+        run: npm run test:browser:production
+        env:
+          PLAYWRIGHT_CHANNEL: chromium
+      - name: Test development-only staff preview
+        run: npm run test:browser:preview
         env:
           PLAYWRIGHT_CHANNEL: chromium

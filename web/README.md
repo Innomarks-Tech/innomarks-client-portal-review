@@ -13,9 +13,11 @@ npm run typecheck
 npm test
 npm run build
 npm run test:browser
+npm run test:browser:production
+npm run test:browser:preview
 ```
 
-`npm run build` validates the active environment before compiling. The Playwright configuration starts the appropriate local server when one is not already running.
+`npm run build` validates the active environment before compiling. `test:browser` runs the complete local suite against the development server. CI uses `test:browser:production` for deployable routes against `next start`, then `test:browser:preview` for the development-only `/admin/preview` workflows. This keeps the production boundary intact while retaining staff-demo coverage.
 
 ## Configuration
 

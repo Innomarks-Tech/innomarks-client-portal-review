@@ -1,11 +1,14 @@
-# Verification — 9 September 2026
+# Verification — 10 September 2026
 
 ## Current evidence
 
 - ESLint, TypeScript checking, the 14-test Vitest suite, Git whitespace validation, and the production dependency audit passed after the latest UI and staff portal changes.
 - The complete Next.js production build passed, including TypeScript, page-data collection, and all 14 static/dynamic page generations. This check found and fixed a missing Suspense boundary on `/auth/confirm`.
-- All 17 Playwright scenarios passed after correcting stale selectors and time budgets. They cover responsive layouts, accessibility scans, service selection, Project Discovery, staff review screens, reduced motion, reverse sticky-service scrolling, and the continuously moving testimonial strip.
-- GitHub Actions now installs Chromium and runs Playwright after lint, typecheck, unit tests, and the production build.
+- The browser/CI server-mode mismatch was resolved on 10 September. Deployable routes now run through `playwright.production.config.ts` against `next start`; development-only staff preview workflows run separately against `next dev`. The signed-out staff authentication scenario was moved into `staff-auth.spec.ts` so it remains part of production coverage.
+- The corrected production suite passed all 11 scenarios. It covers responsive layouts, reduced-motion and no-JavaScript readability, keyboard service navigation, accessibility, sticky-service scrolling, testimonial motion, Project Discovery, protected staff-route redirects, and account recovery.
+- The corrected development-preview suite passed all 6 scenarios. It covers staff portal layouts and accessibility, enquiry search and filters, status and note interactions, email personalisation and approval simulation, automation deduplication, and refresh isolation.
+- The accessibility scan now uses reduced-motion mode so it checks the stable rendered colours rather than sampling the rotating headline midway through an opacity transition. Motion behavior remains independently covered by `landing-motion.spec.ts`.
+- GitHub Actions installs Chromium and runs both browser suites after lint, type checking, unit tests, and the production build.
 - Local HTTP checks returned 200 for public routes, redirected protected staff routes to login, returned 401 for an unauthorised internal dispatch request, and kept disabled intake at 503 before preview enablement.
 - Supabase reported all five migrations applied. A live read-only query confirmed the intake function exists, one active staff member is configured, and no enquiry records were present.
 - Supabase performance advice has no remaining unindexed foreign keys. Newly created indexes are reported as unused because the database currently contains no enquiry activity.

@@ -4,6 +4,10 @@ import AxeBuilder from "@axe-core/playwright";
 test("desktop services, keyboard disclosure, links and accessibility", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
+  // Keep the automated contrast scan deterministic instead of sampling text
+  // partway through its intentional opacity transition. Motion behavior has
+  // separate coverage in landing-motion.spec.ts.
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Technology that moves your business");

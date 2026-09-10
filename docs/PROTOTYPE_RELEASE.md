@@ -32,10 +32,17 @@ The build runs `npm run check:env`. It fails before compilation if intake or ema
 ## Release check
 
 1. Run `npm ci`, `npm run lint`, `npm run typecheck`, `npm test`, and `npm run build` from `web/`.
-2. Run `npm run test:browser`. Playwright starts the site automatically and CI installs Chromium.
+2. Run `npm run test:browser` for the complete development suite. CI separately runs `npm run test:browser:production` against the production build and `npm run test:browser:preview` against the development-only staff preview.
 3. Send one clearly synthetic enquiry from the deployed Project Discovery form.
 4. Confirm the reference appears in `/admin/leads`, then delete the synthetic record if it is no longer needed.
 5. Confirm `/api/inquiries` rejects a missing or foreign Origin and that `/api/internal/email-dispatch` rejects an unauthorised request.
 6. Review Supabase security and performance advisors after every database migration.
 
 The privacy notice identifies this as a prototype and states the current providers and data use. A fixed retention schedule and legal approval are still required before public production use.
+
+## Submission status — 10 September audit
+
+- Lint, type checking, 14 unit tests, production dependency audit, and a prototype-configured production build passed.
+- The build guard correctly fails when staff email delivery is enabled without `CRON_SECRET`. For the submitted prototype, retain `STAFF_EMAIL_ENABLED=false` and `NOTIFICATIONS_ENABLED=false` unless the complete Resend and scheduler setup is approved.
+- The corrected browser split passed 11 of 11 production scenarios and 6 of 6 development-preview scenarios. See `VERIFICATION.md` for the coverage details.
+- A live synthetic enquiry-to-staff-portal journey was not performed during the audit because it would create external data. Complete it before enabling public intake.

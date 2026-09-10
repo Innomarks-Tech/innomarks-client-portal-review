@@ -9,7 +9,7 @@
 
 ## Next focused work
 
-1. Review the latest Vercel preview and confirm its environment variables without exposing values.
+1. Review the latest Vercel preview and confirm its environment variables without exposing values. In particular, keep both email flags false for the prototype or provide `CRON_SECRET` and the complete email setup.
 2. Run one synthetic browser-to-database enquiry and confirm that it appears for the active staff account.
 3. Review the prototype privacy wording with the business owner and agree a fixed retention schedule before public production use.
 4. Replace placeholder testimonials with approved, attributable client feedback before public release.

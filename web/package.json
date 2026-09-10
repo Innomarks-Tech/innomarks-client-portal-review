@@ -10,6 +10,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:browser": "playwright test",
+    "test:browser:preview": "playwright test tests/browser/staff-email.spec.ts tests/browser/staff-review.spec.ts",
+    "test:browser:production": "playwright test --config=playwright.production.config.ts",
     "check:env": "node --env-file-if-exists=.env.local scripts/check-env.mjs"
   },
   "dependencies": {
