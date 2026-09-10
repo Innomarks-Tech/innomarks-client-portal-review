@@ -58,7 +58,7 @@ export function DiscoveryForm({ initialService, enabled }: { initialService?: st
     } finally { setPending(false); }
   }
 
-  if (reference) return <div className="form-panel">
+  if (reference) return <div className="form-panel form-success">
     <CheckCircle2 size={38} aria-hidden="true" />
     <h2 ref={heading} tabIndex={-1}>Your enquiry is with us.</h2>
     <p>Thank you, {values.name}. The team can now review your project and contact you at {values.email}.</p>
