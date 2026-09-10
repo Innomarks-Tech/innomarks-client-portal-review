@@ -42,5 +42,4 @@ For Linux CI, install Playwright Chromium and set PLAYWRIGHT_CHANNEL=chromium. B
 - [Design process](docs/DESIGN.md)
 - [Figma working file](https://www.figma.com/design/d57KRrIlDsRhMfAJdU9JPC)
 
-## Cost and AI assistance
-Free resources only: no paid upgrades, credit-card trials or domain purchases. AI assistance is permitted; implementation, owner decisions, tests and limitations are recorded honestly. Automated checks are not human usability research.
+
