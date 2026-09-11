@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { createStaffBrowserClient } from "@/lib/supabase/client";
 
 export function SetPasswordForm() {
-  const supabase = useMemo(() => createStaffBrowserClient(), []);
+  const supabaseRef = useRef<ReturnType<typeof createStaffBrowserClient> | null>(null);
+  const getSupabase = useCallback(() => (supabaseRef.current ??= createStaffBrowserClient()), []);
   const [checking, setChecking] = useState(true);
   const [authorised, setAuthorised] = useState(false);
   const [pending, setPending] = useState(false);
@@ -23,13 +24,13 @@ export function SetPasswordForm() {
       let session = null;
 
       if (code) {
-        const result = await supabase.auth.exchangeCodeForSession(code);
+        const result = await getSupabase().auth.exchangeCodeForSession(code);
         session = result.data.session;
       } else if (tokenHash && (type === "recovery" || type === "invite")) {
-        const result = await supabase.auth.verifyOtp({ token_hash: tokenHash, type });
+        const result = await getSupabase().auth.verifyOtp({ token_hash: tokenHash, type });
         session = result.data.session;
       } else {
-        const result = await supabase.auth.getSession();
+        const result = await getSupabase().auth.getSession();
         session = result.data.session;
       }
 
@@ -45,13 +46,13 @@ export function SetPasswordForm() {
       setAuthorised(false);
       setChecking(false);
     });
-    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data } = getSupabase().auth.onAuthStateChange((_event, session) => {
       if (!active) return;
       setAuthorised(Boolean(session));
       setChecking(false);
     });
     return () => { active = false; data.subscription.unsubscribe(); };
-  }, [supabase]);
+  }, [getSupabase]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -65,13 +66,13 @@ export function SetPasswordForm() {
     }
     if (password !== confirmation) { setError("The passwords do not match."); return; }
     setPending(true);
-    const { error: updateError } = await supabase.auth.updateUser({ password });
+    const { error: updateError } = await getSupabase().auth.updateUser({ password });
     if (updateError) {
       setError("Your password could not be saved. Request a new secure link and try again.");
       setPending(false);
       return;
     }
-    await supabase.auth.signOut();
+    await getSupabase().auth.signOut();
     setComplete(true);
     setPending(false);
   }
