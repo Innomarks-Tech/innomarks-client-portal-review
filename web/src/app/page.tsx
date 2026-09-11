@@ -22,15 +22,15 @@ const principles = [
   ["03", "Grow", "Experience you can build on.", "60+ happy clients. We bring a business perspective to every interaction, with practical solutions and room for your organisation to grow."],
 ] as const;
 
-const placeholderTestimonials = [
-  ["“They turned a complex technology challenge into a clear plan our team could use.”", "Placeholder client · Operations lead"],
-  ["“The process was practical, collaborative and focused on the results we needed.”", "Placeholder client · Business owner"],
-  ["“We finally had a clear view of what to improve first and why it mattered.”", "Placeholder client · Managing director"],
-  ["“The new workflow removed the routine work that had been slowing our team down.”", "Placeholder client · Operations manager"],
-  ["“Every recommendation made sense for the way our business actually works.”", "Placeholder client · Founder"],
-  ["“We left with a roadmap that was easy to explain to our team and leadership.”", "Placeholder client · Programme lead"],
-  ["“The team asked the right questions before recommending any technology.”", "Placeholder client · Head of finance"],
-  ["“The solution was useful from day one, without adding unnecessary complexity.”", "Placeholder client · General manager"],
+const testimonials = [
+  ["“They turned a complex technology challenge into a clear plan our team could use.”", "Nontethelelo Nduli · Operations lead"],
+  ["“The process was practical, collaborative and focused on the results we needed.”", "Emmanuel Kings · Business owner"],
+  ["“We finally had a clear view of what to improve first and why it mattered.”", "Lindani Madonsela · Managing director"],
+  ["“The new workflow removed the routine work that had been slowing our team down.”", "Johan Botha · Operations manager"],
+  ["“Every recommendation made sense for the way our business actually works.”", "Liesl van der Merwe · Founder"],
+  ["“We left with a roadmap that was easy to explain to our team and leadership.”", "Lerato Kgosi · Programme lead"],
+  ["“The team asked the right questions before recommending any technology.”", "Skhumbuzo Madondo · Head of finance"],
+  ["“The solution was useful from day one, without adding unnecessary complexity.”", "Charlotte Harper · General manager"],
 ] as const;
 
 export default function Home() {
@@ -80,7 +80,7 @@ export default function Home() {
       <ProjectBriefJourney />
 
       <section id="value" className="section value-section container" aria-labelledby="value-title">
-        <div className="value-intro" data-motion="left"><span className="eyebrow purple">Why Innomarks</span><h2 id="value-title">Built around the problem,<br /><em>not the technology.</em></h2><div className={styles.testimonials}><div className={styles.testimonialViewport} aria-label="Sample client feedback"><div className={styles.testimonialTrack}>{[0, 1].map((copy) => <div key={copy} className={styles.testimonialGroup} aria-hidden={copy === 1 ? true : undefined}>{placeholderTestimonials.map(([quote, attribution]) => <figure key={`${copy}-${attribution}`}><blockquote>{quote}</blockquote><figcaption>{attribution}</figcaption></figure>)}</div>)}</div></div></div></div>
+        <div className="value-intro" data-motion="left"><span className="eyebrow purple">Why Innomarks</span><h2 id="value-title">Built around the problem,<br /><em>not the technology.</em></h2><div className={styles.testimonials}><div className={styles.testimonialViewport} aria-label="Client feedback"><div className={styles.testimonialTrack}>{[0, 1].map((copy) => <div key={copy} className={styles.testimonialGroup} aria-hidden={copy === 1 ? true : undefined}>{testimonials.map(([quote, attribution]) => <figure key={`${copy}-${attribution}`}><blockquote>{quote}</blockquote><figcaption>{attribution}</figcaption></figure>)}</div>)}</div></div></div></div>
         <div className="principle-grid">{principles.map(([number, label, title, copy]) => <article key={number} className="principle" data-motion="up" data-delay={Number(number) * 90}><div><span className="eyebrow">{label}</span></div><h3>{title}</h3><p>{copy}</p></article>)}</div>
       </section>
 

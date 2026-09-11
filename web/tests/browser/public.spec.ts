@@ -55,7 +55,7 @@ test("desktop scrolling advances and reverses the sticky service journey", async
 test("client feedback keeps moving after pointer interaction", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
-  const viewport = page.locator('[aria-label="Sample client feedback"]');
+  const viewport = page.locator('[aria-label="Client feedback"]');
   const track = viewport.locator(":scope > div");
   await viewport.click({ position: { x: 20, y: 20 } });
   await expect.poll(() => track.evaluate((element) => getComputedStyle(element).animationPlayState)).toBe("running");
