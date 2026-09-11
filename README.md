@@ -30,7 +30,6 @@ npm run start
 # In another terminal; local tests use installed Edge:
 npm run test:browser
 ```
-For Linux CI, install Playwright Chromium and set PLAYWRIGHT_CHANNEL=chromium. Browser tests currently expect intake disabled and a server at http://127.0.0.1:3000.
 
 ## Documentation
 - [Next session: start here](docs/NEXT_SESSION.md)
