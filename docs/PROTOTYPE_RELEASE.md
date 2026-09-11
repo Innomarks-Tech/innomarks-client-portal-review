@@ -13,7 +13,7 @@ SUPABASE_SECRET_KEY=<server-only secret key>
 NEXT_PUBLIC_SUPABASE_URL=<project API URL>
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<publishable key>
 RATE_LIMIT_SECRET=<at least 32 random characters>
-SITE_URL=https://innomarks-client-portal.vercel.app
+SITE_URL=https://innomarks.vercel.app
 NOTIFICATIONS_ENABLED=false
 STAFF_EMAIL_ENABLED=false
 ```

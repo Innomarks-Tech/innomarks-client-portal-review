@@ -2,7 +2,7 @@
 
 A responsive Next.js prototype for Innomarks Technology Consulting. It presents the business, six service areas, technology partners, placeholder testimonial layouts, Project Discovery, and a private Supabase-backed staff portal.
 
-[Open the Vercel review site](https://innomarks-client-portal.vercel.app)
+[Open the Vercel review site](https://innomarks.vercel.app)
 
 ## Current state
 

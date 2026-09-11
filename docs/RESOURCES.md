@@ -4,10 +4,10 @@ No secrets belong in this file.
 
 | Resource | Details | Status |
 | --- | --- | --- |
-| GitHub | [utayannaidoo/innomarks-client-portal](https://github.com/utayannaidoo/innomarks-client-portal); private | Private repository; checkpoint branch codex/innomarks-prototype |
+| GitHub | [utayannaidoo/innomarks-client-portal-review](https://github.com/utayannaidoo/innomarks-client-portal-review); public | Review repository; default branch `main` |
 | Supabase | `innomarks-client-portal`; ref `kzwzitdazceeoyyuakmw`; Ireland `eu-west-1` | Active; secure intake schema applied and transactional checks passed |
 | Figma | [Innomarks design working file](https://www.figma.com/design/d57KRrIlDsRhMfAJdU9JPC) | Created |
-| Vercel | `innomarks-client-portal` in `utayannaidoo-5493s-projects` | Deployed prototype: https://innomarks-client-portal.vercel.app |
+| Vercel | `innomarks` in `utayannaidoo-5493s-projects` | Deployed prototype: https://innomarks.vercel.app |
 | Custom domain | innomarkstech.co.za; no purchase | Awaiting access |
 | Business profile | `TECH_DIVISION_PROFILE.pdf` | Reviewed; source notes recorded |
 | Email | Resend integration and Supabase custom SMTP currently use the Resend test sender `onboarding@resend.dev` | Test-only: Resend rejects recipients other than the Resend account owner. Verify an Innomarks sending domain and replace the sender before enabling production staff invites or email delivery. |
