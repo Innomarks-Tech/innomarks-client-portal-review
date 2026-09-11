@@ -38,7 +38,6 @@ npm test
 npm run build
 npm run test:browser
 ```
-
 Playwright starts the local site automatically. GitHub Actions installs Chromium and runs the same browser suite after the production build.
 
 ## Documentation
