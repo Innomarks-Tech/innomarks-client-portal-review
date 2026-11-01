@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Innomarks Technology Consulting — Technology that moves business forward",
   description:
     "Practical technology consulting, digital transformation, software, data, AI, and cybersecurity for your business.",
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
