@@ -385,39 +385,29 @@ input[type="checkbox"] { accent-color: var(--color-brand); width: 18px; height: 
  html { scroll-behavior: auto; }
  *, *::before, *::after { transition: none !important; animation: none !important; }
 
- /* ===== Site header: brand colour ===== */
+/* ===== Site header: dark blue ===== */
 .site-header {
   overflow: hidden;
   background:
-    radial-gradient(ellipse 520px 160px at 16% 0%, rgba(7, 90, 163, .13), transparent 70%),
-    linear-gradient(100deg, #eaf3fb 0%, #ffffff 45%, #f3faee 100%);
-  border-bottom: 3px solid transparent;
-  border-image: linear-gradient(90deg, var(--color-brand), #2f8be0 55%, var(--color-green)) 1;
+    radial-gradient(ellipse at 50% 50%, rgba(47, 139, 224, .4), transparent 62%),
+    linear-gradient(135deg, #031633, #08428a 50%, #03163a);
 }
-
-/* angled bands, like the email header */
-.site-header::before,
-.site-header::after {
+.site-header::before {
   content: "";
   position: absolute;
   inset: 0;
+  background: linear-gradient(135deg, #6cc63a, #2a7a1c);
+  clip-path: polygon(80% 0, 100% 0, 100% 100%, 72% 100%);
   pointer-events: none;
 }
-.site-header::before {
-  background: linear-gradient(135deg, #7ed957, var(--color-green));
-  clip-path: polygon(74% 0, 100% 0, 100% 100%, 66% 100%);
-  opacity: .22;
-}
-.site-header::after {
-  background: linear-gradient(135deg, var(--color-brand), #2f8be0);
-  clip-path: polygon(46% 0, 58% 0, 50% 100%, 38% 100%);
-  opacity: .08;
+.site-header > * { position: relative; z-index: 1; }
+
+.site-header .brand { background: #fff; padding: 6px 14px; border-radius: 12px; }
+.site-header .desktop-nav a { color: #fff; }
+.site-header .desktop-nav a:hover { color: #a4d879; }
+.site-header .nav-cta { background: #fff; color: var(--color-brand); }
+.site-header .nav-cta:hover { background: #eef6fb; }
+.site-header .menu-toggle { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .5); }
+.site-header .mobile-nav a { color: #fff; border-bottom-color: rgba(255, 255, 255, .2); }
 }
 
-/* keep the logo, links, button and mobile menu above the bands */
-.site-header > * {
-  position: relative; 
-  z-index: 1;
-}
-}
-   .site-header { background: red !important; }
