@@ -384,4 +384,39 @@ input[type="checkbox"] { accent-color: var(--color-brand); width: 18px; height: 
 @media (prefers-reduced-motion: reduce) {
  html { scroll-behavior: auto; }
  *, *::before, *::after { transition: none !important; animation: none !important; }
+
+ /* ===== Site header: brand colour ===== */
+.site-header {
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 520px 160px at 16% 0%, rgba(7, 90, 163, .13), transparent 70%),
+    linear-gradient(100deg, #eaf3fb 0%, #ffffff 45%, #f3faee 100%);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--color-brand), #2f8be0 55%, var(--color-green)) 1;
+}
+
+/* angled bands, like the email header */
+.site-header::before,
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.site-header::before {
+  background: linear-gradient(135deg, #7ed957, var(--color-green));
+  clip-path: polygon(74% 0, 100% 0, 100% 100%, 66% 100%);
+  opacity: .22;
+}
+.site-header::after {
+  background: linear-gradient(135deg, var(--color-brand), #2f8be0);
+  clip-path: polygon(46% 0, 58% 0, 50% 100%, 38% 100%);
+  opacity: .08;
+}
+
+/* keep the logo, links, button and mobile menu above the bands */
+.site-header > * {
+  position: relative; 
+  z-index: 1;
+}
 }
