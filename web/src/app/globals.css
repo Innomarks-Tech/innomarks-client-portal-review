@@ -411,3 +411,7 @@ input[type="checkbox"] { accent-color: var(--color-brand); width: 18px; height: 
 .site-header .mobile-nav a { color: #fff; border-bottom-color: rgba(255, 255, 255, .2); }
 }
 
+   @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+   }
