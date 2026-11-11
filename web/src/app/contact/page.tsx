@@ -15,7 +15,7 @@ export default function ContactPage() {
         <address className={styles.contactLinks}>
           <a href="tel:+27685986184"><span>Call us</span><strong>068 598 6184</strong></a>
           <a href="mailto:info@innomarkstech.co.za"><span>Email us</span><strong>info@innomarkstech.co.za</strong></a>
-          <div><span>Office location</span><strong>Midrand, South Africa</strong></div>
+          <div><span>Office location</span><strong>Whitby Manor Office Estate, Noordwyk, Midrand, Gauteng, 1687</strong></div>
           <a href="https://www.innomarkstech.co.za"><span>Website</span><strong>www.innomarkstech.co.za</strong></a>
         </address>
       </section>
