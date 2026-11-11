@@ -65,11 +65,11 @@ export default function Home() {
           <span className="eyebrow purple">About Innomarks</span>
           <h2 id="about-title">Technology expertise.<br /><em>Business perspective.</em></h2>
           <p>Innomarks Technology Consulting is the technology and business consulting division of Innomarks Group. We help organisations make practical technology decisions, improve operations and build useful digital solutions.</p>
-          <p>With 60+ happy clients, our work begins with the business context: the people doing the work, the friction they face and the outcome that needs to change. From cloud infrastructure and custom software to customer platforms and collaboration tools, our technology partnerships help us connect the right expertise to your goals.</p>
+          <p>With 25+ happy clients, our work begins with the business context: the people doing the work, the friction they face and the outcome that needs to change. From cloud infrastructure and custom software to customer platforms and collaboration tools, our technology partnerships help us connect the right expertise to your goals.</p>
         </div>
         <aside className={styles.aboutPanel} data-motion="right">
-          <span className="eyebrow purple">Part of Innomarks Group</span>
-          <strong className={styles.clientCount}>60+</strong><h3>Happy clients.<br />Practical technology.</h3>
+          <span className="eyebrow purple">Part of Innomarks Holdings Group</span>
+          <strong className={styles.clientCount}>25+</strong><h3>Happy clients.<br />Practical technology.</h3>
           <p>Our technology and business consulting division connects strategy with the practical work of improving how organisations operate.</p>
           <span>Innomarks Technology Consulting</span>
         </aside>
@@ -80,7 +80,7 @@ export default function Home() {
       <ProjectBriefJourney />
 
       <section id="value" className="section value-section container" aria-labelledby="value-title">
-        <div className="value-intro" data-motion="left"><span className="eyebrow purple">Why Innomarks</span><h2 id="value-title">Built around the problem,<br /><em>not the technology.</em></h2><div className={styles.testimonials}><div className={styles.testimonialViewport} aria-label="Client feedback"><div className={styles.testimonialTrack}>{[0, 1].map((copy) => <div key={copy} className={styles.testimonialGroup} aria-hidden={copy === 1 ? true : undefined}>{testimonials.map(([quote, attribution]) => <figure key={`${copy}-${attribution}`}><blockquote>{quote}</blockquote><figcaption>{attribution}</figcaption></figure>)}</div>)}</div></div></div></div>
+        <div className="value-intro" data-motion="left"><span className="eyebrow purple">Why Innomarks</span><h2 id="value-title">Built around the problem,<br /><em>not just the technology.</em></h2><div className={styles.testimonials}><div className={styles.testimonialViewport} aria-label="Client feedback"><div className={styles.testimonialTrack}>{[0, 1].map((copy) => <div key={copy} className={styles.testimonialGroup} aria-hidden={copy === 1 ? true : undefined}>{testimonials.map(([quote, attribution]) => <figure key={`${copy}-${attribution}`}><blockquote>{quote}</blockquote><figcaption>{attribution}</figcaption></figure>)}</div>)}</div></div></div></div>
         <div className="principle-grid">{principles.map(([number, label, title, copy]) => <article key={number} className="principle" data-motion="up" data-delay={Number(number) * 90}><div><span className="eyebrow">{label}</span></div><h3>{title}</h3><p>{copy}</p></article>)}</div>
       </section>
 
